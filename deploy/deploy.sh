@@ -1,0 +1,9 @@
+#!/bin/bash
+
+DEPLOY_SERVER=$1
+DOPPLER_SERVICE_TOKEN=$2
+WORKING_BRANCH=$3
+WORKING_DIRECTORY=$4
+
+scp -r dist ubuntu@${DEPLOY_SERVER}:${WORKING_DIRECTORY}
+ssh -o StrictHostKeyChecking=no ubuntu@${DEPLOY_SERVER} 'bash -s' < ./deploy/server.sh $DOPPLER_SERVICE_TOKEN $WORKING_BRANCH $WORKING_DIRECTORY
