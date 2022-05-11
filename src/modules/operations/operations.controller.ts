@@ -7,9 +7,9 @@ import {
   UseGuards,
   UseInterceptors,
 } from '@nestjs/common';
+
 import { TtlHelper } from '~/common/helpers/ttl.helper';
 import { TraceInterceptor } from '~/providers/trace/trace.interceptor';
-
 import { JwtAuthGuard } from '../authentication/guards';
 import { OperationsService } from './operations.service';
 
@@ -27,7 +27,6 @@ export class OperationsController {
   }
 
   @Get('exchange-rate-2')
-  @UseInterceptors(TraceInterceptor)
   exchangeRate2() {
     return this.operationsService.exchangeRate2();
   }
