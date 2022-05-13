@@ -37,8 +37,8 @@ export class UsersController {
     await this.usersService.create({ ...idDto, ...createUserDto });
   }
 
-  @Get(':id')
   @UseGuards(JwtAuthGuard)
+  @Get(':id')
   @UseInterceptors(TraceInterceptor)
   async getById(
     @Param(new JoiValidationPipe(IdSchema))
@@ -47,14 +47,15 @@ export class UsersController {
     return this.usersService.getById(idDto.id);
   }
 
-  @Post('criteria')
   @UseGuards(JwtAuthGuard)
+  @Post('criteria')
   findByCriteria(
     @Body(new JoiValidationPipe(CriteriaSchema)) criteriaDto: CriteriaDto,
   ) {
     return this.usersService.findByCriteria(criteriaDto);
   }
 
+  @UseGuards(JwtAuthGuard)
   @Patch(':id')
   @HttpCode(HttpStatus.NO_CONTENT)
   async update(
@@ -66,9 +67,9 @@ export class UsersController {
     await this.usersService.update(idDto.id, updateUserDto);
   }
 
+  @UseGuards(JwtAuthGuard)
   @Delete(':id')
   @HttpCode(HttpStatus.NO_CONTENT)
-  @UseGuards(JwtAuthGuard)
   async remove(
     @Param(new JoiValidationPipe(IdSchema))
     idDto: IdDto,
