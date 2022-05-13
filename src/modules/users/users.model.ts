@@ -29,6 +29,9 @@ export class User extends defaultClasses.TimeStamps {
   @prop({ required: true, unique: true })
   public email!: string;
 
+  @prop({ required: true })
+  public phone!: string;
+
   @prop({
     required: true,
     enum: UserState,

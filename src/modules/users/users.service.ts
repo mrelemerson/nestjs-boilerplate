@@ -46,6 +46,7 @@ export class UsersService {
         id: userCreated._id,
         username: userCreated.username,
         email: userCreated.email,
+        phone: userCreated.phone,
         role: userCreated.role,
       }),
     );

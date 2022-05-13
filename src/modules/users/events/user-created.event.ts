@@ -8,6 +8,7 @@ export class UserCreatedEvent extends Event {
     readonly id: string,
     readonly username: string,
     readonly email: string,
+    readonly phone: string,
     readonly role: UserRole,
   ) {
     super(UserCreatedEvent.EVENT_NAME, id);
@@ -17,12 +18,14 @@ export class UserCreatedEvent extends Event {
     id: string;
     username: string;
     email: string;
+    phone: string;
     role: UserRole;
   }) {
     return new UserCreatedEvent(
       params.id,
       params.username,
       params.email,
+      params.phone,
       params.role,
     );
   }

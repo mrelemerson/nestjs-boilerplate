@@ -1,12 +1,11 @@
 import { HttpModule } from '@nestjs/axios';
-import { Global, Module } from '@nestjs/common';
+import { Module } from '@nestjs/common';
 import axios, { AxiosRequestTransformer } from 'axios';
 
 import { ConfigModule } from './config/config.module';
 import { ConfigService } from './config/config.service';
-import { ApisNetService } from './apis-net.service';
+import { ApiService } from './api.service';
 
-@Global()
 @Module({
   imports: [
     HttpModule.registerAsync({
@@ -18,6 +17,8 @@ import { ApisNetService } from './apis-net.service';
         transformRequest: [
           // eslint-disable-next-line @typescript-eslint/no-unused-vars
           (data, headers) => {
+            if (headers) headers['x-api-key'] = configService.apiKey;
+
             return data;
           },
           ...(axios.defaults.transformRequest as AxiosRequestTransformer[]),
@@ -25,7 +26,7 @@ import { ApisNetService } from './apis-net.service';
       }),
     }),
   ],
-  providers: ApisNetService.providers,
-  exports: ApisNetService.providers,
+  providers: ApiService.providers,
+  exports: ApiService.providers,
 })
-export class ApisNetModule {}
+export class ApiModule {}

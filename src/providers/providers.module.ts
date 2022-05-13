@@ -8,6 +8,7 @@ import { MailModule } from '~/providers/mail/mail.module';
 import { QueueModule } from '~/providers/queue/queue.module';
 import { TraceModule } from '~/providers/trace/trace.module';
 import { ExchangeRateModule } from './exchange-rate/exchange-rate.module';
+import { SmsModule } from './sms/sms.module';
 
 @Module({
   imports: [
@@ -19,6 +20,7 @@ import { ExchangeRateModule } from './exchange-rate/exchange-rate.module';
     QueueModule,
     TraceModule,
     ExchangeRateModule,
+    SmsModule,
   ],
 })
 export class ProvidersModule {}
