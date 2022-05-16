@@ -15,6 +15,8 @@ import { configuration } from './configuration';
           .required(),
         APP_PORT: Joi.number().required(),
         APP_GLOBAL_PREFIX: Joi.string().required(),
+        APP_URL: Joi.string().uri().required(),
+        WEB_URL: Joi.string().uri().required(),
       }),
     }),
   ],

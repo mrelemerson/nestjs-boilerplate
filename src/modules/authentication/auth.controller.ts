@@ -1,7 +1,19 @@
-import { Controller, Get, Post, Req, UseGuards } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  HttpCode,
+  HttpStatus,
+  Post,
+  Req,
+  UseGuards,
+} from '@nestjs/common';
+import { JoiValidationPipe } from '../shared/pipes';
 
 import { AuthService } from './auth.service';
+import { ForgotPasswordDto, ResetPasswordDto } from './dto';
 import { LocalAuthGuard, JwtAuthGuard } from './guards';
+import { ForgotPasswordSchema, ResetPasswordSchema } from './schemas';
 
 @Controller('auth')
 export class AuthController {
@@ -23,5 +35,23 @@ export class AuthController {
   @Get('/profile')
   getProfile(@Req() req: any) {
     return req.user;
+  }
+
+  @Post('/forgot-password')
+  @HttpCode(HttpStatus.NO_CONTENT)
+  async forgotPassword(
+    @Body(new JoiValidationPipe(ForgotPasswordSchema))
+    forgotPasswordDto: ForgotPasswordDto,
+  ) {
+    await this.authService.forgotPassword(forgotPasswordDto);
+  }
+
+  @Post('/reset-password')
+  @HttpCode(HttpStatus.NO_CONTENT)
+  async resetPassword(
+    @Body(new JoiValidationPipe(ResetPasswordSchema))
+    resetPasswordDto: ResetPasswordDto,
+  ) {
+    await this.authService.resetPassword(resetPasswordDto);
   }
 }

@@ -1,4 +1,5 @@
 import { defaultClasses, DocumentType, pre, prop } from '@typegoose/typegoose';
+import e from 'express';
 import { LeanDocument } from 'mongoose';
 
 import { HashHelper } from '~Helpers/hash.helper';
@@ -9,6 +10,20 @@ import { UserRole, UserState } from './enums';
     HashHelper.hash(this.password)
       .then((hash) => {
         this.password = hash;
+        next();
+      })
+      .catch((error) => next(error));
+  } else {
+    next();
+  }
+})
+@pre<User>('updateOne', function (next) {
+  const update = (this as any)._update['$set'];
+
+  if (update['password']) {
+    HashHelper.hash(update['password'])
+      .then((hash) => {
+        this.set({ password: hash });
         next();
       })
       .catch((error) => next(error));

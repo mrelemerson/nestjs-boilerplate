@@ -10,6 +10,8 @@ export class ConfigService {
           env: string;
           port: number;
           globalPrefix: string;
+          appUrl: string;
+          webUrl: string;
         };
       },
       true
@@ -26,5 +28,13 @@ export class ConfigService {
 
   get globalPrefix() {
     return this.nestConfigService.get('app.globalPrefix', { infer: true });
+  }
+
+  get appUrl() {
+    return this.nestConfigService.get('app.appUrl', { infer: true });
+  }
+
+  get webUrl() {
+    return this.nestConfigService.get('app.webUrl', { infer: true });
   }
 }

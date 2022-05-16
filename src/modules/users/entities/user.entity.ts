@@ -3,15 +3,15 @@ import { User } from '../users.model';
 
 export class UserEntity {
   private constructor(
-    public readonly id: string,
-    public readonly username: string,
-    public readonly password: string,
-    public readonly email: string,
-    public readonly phone: string,
-    public readonly state: UserState,
-    public readonly role: UserRole,
-    public readonly createdAt: Date,
-    public readonly updatedAt: Date,
+    readonly id: string,
+    readonly username: string,
+    readonly password: string,
+    readonly email: string,
+    readonly phone: string,
+    readonly state: UserState,
+    readonly role: UserRole,
+    readonly createdAt: Date,
+    readonly updatedAt: Date,
   ) {}
 
   static create(user: User) {

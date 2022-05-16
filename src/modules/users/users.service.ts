@@ -1,5 +1,6 @@
 import { Inject, Injectable, Logger } from '@nestjs/common';
 import { ReturnModelType } from '@typegoose/typegoose';
+import { FilterQuery } from 'mongoose';
 import { InjectModel } from 'nestjs-typegoose';
 
 import { MongoHelper } from '~/common/helpers/mongo.helper';
@@ -7,7 +8,7 @@ import {
   EventBusService,
   EVENT_BUS,
 } from '~/providers/event-bus/event-bus.service';
-import { User } from './users.model';
+import { User, UserDoc } from './users.model';
 import { CreateUserDto, UpdateUserDto } from './dto';
 import { UserCreatedEvent } from './events';
 import { CriteriaDto } from '../shared/dto';
@@ -52,18 +53,18 @@ export class UsersService {
     );
   }
 
-  async getById(id: string) {
-    const found = await this.userModel.findById(id).exec();
-
-    if (!found) {
-      throw new UserNotFoundException();
-    }
-
-    return UserEntity.create(found);
+  getById(id: string) {
+    return this.#findOne({ _id: id });
   }
 
   async findByUsername(username: string) {
     const found = await this.userModel.findOne({ username }).exec();
+
+    return found ? UserEntity.create(found) : undefined;
+  }
+
+  async findByEmail(email: string) {
+    const found = await this.userModel.findOne({ email }).exec();
 
     return found ? UserEntity.create(found) : undefined;
   }
@@ -77,15 +78,45 @@ export class UsersService {
     return { items: items.map(UserEntity.create), total };
   }
 
-  async update(id: string, updateUserDto: UpdateUserDto): Promise<void> {
-    await this.getById(id);
+  async update(id: string, updateUserDto: UpdateUserDto) {
+    const { modifiedCount } = await this.userModel.updateOne(
+      { _id: id },
+      { $set: updateUserDto },
+    );
 
-    await this.userModel.updateOne({ _id: id }, updateUserDto);
+    if (!modifiedCount) {
+      throw new UserNotFoundException();
+    }
   }
 
-  async remove(id: string): Promise<void> {
-    await this.getById(id);
+  async updatePassword(id: string, password: string) {
+    const { modifiedCount } = await this.userModel.updateOne(
+      { _id: id },
+      {
+        $set: { password },
+      },
+    );
 
-    await this.userModel.deleteOne({ _id: id });
+    if (!modifiedCount) {
+      throw new UserNotFoundException();
+    }
+  }
+
+  async remove(id: string) {
+    const { deletedCount } = await this.userModel.deleteOne({ _id: id });
+
+    if (!deletedCount) {
+      throw new UserNotFoundException();
+    }
+  }
+
+  async #findOne(where: FilterQuery<UserDoc>) {
+    const found = await this.userModel.findOne(where);
+
+    if (!found) {
+      throw new UserNotFoundException();
+    }
+
+    return UserEntity.create(found);
   }
 }
