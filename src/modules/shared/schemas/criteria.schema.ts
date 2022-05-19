@@ -19,6 +19,7 @@ export const CriteriaSchema = Joi.object({
           Joi.string(),
           Joi.number(),
           Joi.boolean(),
+          Joi.array().items(Joi.string(), Joi.number(), Joi.boolean()),
         ).required(),
       }),
     )
