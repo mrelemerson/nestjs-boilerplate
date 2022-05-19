@@ -1,7 +1,7 @@
 import { CACHE_MANAGER, Inject, Injectable } from '@nestjs/common';
 import { Cache } from 'cache-manager';
-import { TtlHelper } from '~/common/helpers/ttl.helper';
 
+import { TtlHelper } from '~Helpers/ttl.helper';
 import {
   ExchangeRateService,
   EXCHANGE_RATE,

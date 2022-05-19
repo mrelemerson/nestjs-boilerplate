@@ -1,14 +1,15 @@
 import { Module } from '@nestjs/common';
 
-import { CacheModule } from '~/providers/cache/cache.module';
-import { CloudModule } from '~/providers/cloud/cloud.module';
-import { DatabaseModule } from '~/providers/database/database.module';
-import { EventBusModule } from '~/providers/event-bus/event-bus.module';
-import { MailModule } from '~/providers/mail/mail.module';
-import { QueueModule } from '~/providers/queue/queue.module';
-import { TraceModule } from '~/providers/trace/trace.module';
+import { CacheModule } from './cache/cache.module';
+import { CloudModule } from './cloud/cloud.module';
+import { DatabaseModule } from './database/database.module';
+import { EventBusModule } from './event-bus/event-bus.module';
 import { ExchangeRateModule } from './exchange-rate/exchange-rate.module';
+import { MailModule } from './mail/mail.module';
+import { QueueModule } from './queue/queue.module';
+import { SecureModule } from './secure/secure.module';
 import { SmsModule } from './sms/sms.module';
+import { TraceModule } from './trace/trace.module';
 
 @Module({
   imports: [
@@ -16,11 +17,12 @@ import { SmsModule } from './sms/sms.module';
     CloudModule,
     DatabaseModule,
     EventBusModule,
+    ExchangeRateModule,
     MailModule,
     QueueModule,
-    TraceModule,
-    ExchangeRateModule,
+    SecureModule,
     SmsModule,
+    TraceModule,
   ],
 })
 export class ProvidersModule {}

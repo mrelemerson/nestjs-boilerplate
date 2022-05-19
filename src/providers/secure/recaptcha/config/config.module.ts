@@ -10,13 +10,8 @@ import { configuration } from './configuration';
     NestConfigModule.forRoot({
       load: [configuration],
       validationSchema: Joi.object({
-        NODE_ENV: Joi.string()
-          .valid('development', 'staging', 'production')
-          .required(),
-        APP_PORT: Joi.number().required(),
-        APP_GLOBAL_PREFIX: Joi.string().required(),
-        APP_URL: Joi.string().uri().required(),
-        WEB_URL: Joi.string().uri().required(),
+        SECURE_RECAPTCHA_SECRET_KEY: Joi.string().required(),
+        SECURE_RECAPTCHA_SCORE: Joi.number().required(),
       }),
     }),
   ],

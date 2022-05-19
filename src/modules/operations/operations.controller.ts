@@ -8,7 +8,7 @@ import {
   UseInterceptors,
 } from '@nestjs/common';
 
-import { TtlHelper } from '~/common/helpers/ttl.helper';
+import { TtlHelper } from '~Helpers/ttl.helper';
 import { TraceInterceptor } from '~/providers/trace/trace.interceptor';
 import { JwtAuthGuard } from '../authentication/guards';
 import { OperationsService } from './operations.service';

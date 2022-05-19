@@ -1,5 +1,4 @@
 import { defaultClasses, DocumentType, pre, prop } from '@typegoose/typegoose';
-import e from 'express';
 import { LeanDocument } from 'mongoose';
 
 import { HashHelper } from '~Helpers/hash.helper';

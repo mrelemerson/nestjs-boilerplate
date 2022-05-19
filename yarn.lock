@@ -836,6 +836,11 @@
     optional "0.1.4"
     tslib "2.3.1"
 
+"@nestlab/google-recaptcha@^2.1.2":
+  version "2.1.2"
+  resolved "https://registry.yarnpkg.com/@nestlab/google-recaptcha/-/google-recaptcha-2.1.2.tgz#b1bc3ed7f8d44dfc4bf6f2f3c2410bce020eee94"
+  integrity sha512-Qaq/8IeZ2bDekRO79KAnn0o1hYKqrWKD6OPHMBlUctkqZZkVz3f3y22Lm0UOu4GE26K3lFykNTX+iwq6w64FQg==
+
 "@nodelib/fs.scandir@2.1.5":
   version "2.1.5"
   resolved "https://registry.yarnpkg.com/@nodelib/fs.scandir/-/fs.scandir-2.1.5.tgz#7619c2eb21b25483f6d167548b4cfd5a7488c3d5"

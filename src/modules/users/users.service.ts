@@ -3,7 +3,7 @@ import { ReturnModelType } from '@typegoose/typegoose';
 import { FilterQuery } from 'mongoose';
 import { InjectModel } from 'nestjs-typegoose';
 
-import { MongoHelper } from '~/common/helpers/mongo.helper';
+import { MongoHelper } from '~Helpers/mongo.helper';
 import {
   EventBusService,
   EVENT_BUS,
